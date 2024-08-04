@@ -1,0 +1,32 @@
+services:
+  recorder:
+    image: cs2-recorder:prod
+    build:
+      context: .
+      dockerfile: Test.Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - cs2-data:/home/steam/cs2
+    privileged: true
+    secrets:
+      - steam_username
+      - steam_pass
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    shm_size: 1g
+    tty: true
+
+volumes:
+  cs2-data:
+
+secrets:
+  steam_username:
+    file: ./steam_username.txt
+  steam_pass:
+    file: ./steam_pass.txt
