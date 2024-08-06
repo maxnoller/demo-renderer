@@ -49,12 +49,6 @@ RUN mkdir -p /opt/steamcmd &&\
 RUN apt-get remove -y xdg-desktop-portal \
     && apt-get clean
 
-COPY ./entrypoint.sh /home/steam/entrypoint.sh
-RUN chmod +x /home/steam/entrypoint.sh
-
-COPY ./xrandr.sh /home/steam/xrandr.sh
-RUN chmod +x /home/steam/xrandr.sh
-
 COPY ./scripts /home/steam/scripts
 RUN chmod +x /home/steam/scripts/*
 
@@ -70,4 +64,4 @@ RUN mkdir -p /home/steam/cs2/ && \
 
 WORKDIR /home/steam
 # Command to start Steam
-CMD ["./entrypoint.sh"]
+CMD ["./scripts/entrypoint.sh"]
