@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "record-test"
+version = "0.1.0"
+description = ""
+authors = ["Maximilian Noller <maximilian.noller@uni-bielefeld.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+demoparser2 = "^0.30.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

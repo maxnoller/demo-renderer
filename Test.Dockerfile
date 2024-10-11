@@ -15,7 +15,8 @@ USER root
 # Install necessary packages
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-      xvfb \
+      xserver-xorg-video-dummy \
+      xorg \
       x11-apps \
       wget \
       software-properties-common \
@@ -32,7 +33,11 @@ RUN apt-get update \
       ffmpeg \
       x11vnc \
       supervisor \
+      python3-pip \
+      python-is-python3 \
     && apt-get clean 
+
+RUN pip3 install poetry
 
 # Install Steam
 RUN dpkg --add-architecture i386 \
@@ -63,5 +68,9 @@ RUN mkdir -p /home/steam/cs2/ && \
     chmod -R 755 /home/steam/cs2/
 
 WORKDIR /home/steam
-# Command to start Steam
+
+# Command to start Xorg with dummy video driver and Steam
+CMD Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile /tmp/xorg.log -config /home/steam/scripts/xorg.conf :99 & \
+    ./scripts/entrypoint.sh
+
 CMD ["./scripts/entrypoint.sh"]

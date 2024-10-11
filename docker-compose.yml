@@ -12,6 +12,8 @@ services:
     secrets:
       - steam_username
       - steam_pass
+    cpus: 8
+    mem_limit: 16g
     deploy:
       resources:
         reservations:
